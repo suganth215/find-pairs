@@ -1,0 +1,58 @@
+openapi: "3.0.3"
+info:
+  title: "Streak AI Assessment"
+  description: "Golang Assessment"
+  version: "1.0.0"
+servers:
+  - url: "http://localhost"
+
+paths:
+  /find-pairs:
+    post:
+      summary: "Golang program to find pairs which produces the given target as sum"
+      description: "Golang program to find pairs which produces the given target as sum"
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                numbers:
+                  type: "array"
+                  example: [1, 2, 3, 4, 5]
+                target:
+                  type: "integer"
+                  example: 6
+
+      responses:
+        "200":
+          description: "Response calculated successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Solutions"
+        "400":
+          description: "Invalid Input"
+          content:
+            application/json:
+              schema:
+                properties:
+                  error:
+                    type: "object"
+                    $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Solutions:
+      type: array
+      example: [[0, 4], [1, 3]]
+    Error:
+      type: object
+      properties:
+        Code:
+          type: string
+          example: "ServerError"
+        Message:
+          type: string
+          example: "error while reading request body"
